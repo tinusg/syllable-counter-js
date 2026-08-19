@@ -13,7 +13,7 @@ This is a vanilla JavaScript port of the PHP package [tinusg/syllable-counter](h
 ## Installation
 
 ```bash
-npm install @tinusg/syllable-counter
+npm install @tinusg-npm/syllable-counter
 ```
 
 Or drop `src/syllable-counter.js` into your project — it is a single file with no build step and no dependencies.
@@ -21,7 +21,7 @@ Or drop `src/syllable-counter.js` into your project — it is a single file with
 ## Usage
 
 ```js
-import { SyllableCounter } from '@tinusg/syllable-counter';
+import { SyllableCounter } from '@tinusg-npm/syllable-counter';
 
 const counter = new SyllableCounter();
 
@@ -33,7 +33,7 @@ counter.split('Olivia');      // ['O', 'li', 'vi', 'a']
 If you do not need your own exceptions, use the helper functions, which share one instance:
 
 ```js
-import { countSyllables, hyphenate, splitSyllables } from '@tinusg/syllable-counter';
+import { countSyllables, hyphenate, splitSyllables } from '@tinusg-npm/syllable-counter';
 
 countSyllables('Sophia');   // 3
 hyphenate('Sophia');        // 'So-phi-a'
