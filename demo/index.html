@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Syllable Counter</title>
+  <style>
+    :root { color-scheme: light dark; --fg: #16161a; --bg: #fbfbfd; --muted: #6b6b76; --line: #dcdce4; }
+    @media (prefers-color-scheme: dark) {
+      :root { --fg: #ececf1; --bg: #16161a; --muted: #9a9aa6; --line: #33333d; }
+    }
+    body {
+      margin: 0; padding: 3rem 1.25rem; background: var(--bg); color: var(--fg);
+      font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    main { max-width: 34rem; margin: 0 auto; }
+    h1 { font-size: 1.5rem; margin: 0 0 .25rem; }
+    p.lede { color: var(--muted); margin: 0 0 2rem; }
+    label { display: block; font-weight: 600; margin-bottom: .4rem; }
+    input[type="text"] {
+      width: 100%; box-sizing: border-box; padding: .7rem .8rem; font-size: 1.1rem;
+      color: inherit; background: transparent; border: 1px solid var(--line); border-radius: .5rem;
+    }
+    fieldset { border: 0; padding: 0; margin: 1rem 0 0; }
+    fieldset span { font-weight: 600; margin-right: .75rem; }
+    label.inline { display: inline; font-weight: 400; margin-right: .75rem; }
+    output { display: block; margin-top: 2rem; }
+    .hyphenated { font-size: 2rem; font-weight: 600; word-break: break-word; }
+    .count { color: var(--muted); }
+    footer { margin-top: 3rem; color: var(--muted); font-size: .875rem; }
+    a { color: inherit; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Syllable Counter</h1>
+    <p class="lede">Dutch spelling rules, no dictionary. Type a name.</p>
+
+    <label for="name">Name</label>
+    <input id="name" type="text" value="Sophia" autocomplete="off" autofocus>
+
+    <fieldset>
+      <span>Final e</span>
+      <label class="inline"><input type="radio" name="mute" value="null" checked> heuristic</label>
+      <label class="inline"><input type="radio" name="mute" value="true"> mute</label>
+      <label class="inline"><input type="radio" name="mute" value="false"> pronounced</label>
+    </fieldset>
+
+    <output id="result">
+      <span class="hyphenated"></span>
+      <span class="count"></span>
+    </output>
+
+    <footer>
+      <a href="https://github.com/tinusg/syllable-counter-js">github.com/tinusg/syllable-counter-js</a>
+    </footer>
+  </main>
+
+  <script type="module">
+    import { SyllableCounter } from '../src/syllable-counter.js';
+
+    const counter = new SyllableCounter();
+    const input = document.querySelector('#name');
+    const hyphenated = document.querySelector('.hyphenated');
+    const count = document.querySelector('.count');
+
+    function selectedMute() {
+      const value = document.querySelector('input[name="mute"]:checked').value;
+
+      return value === 'null' ? null : value === 'true';
+    }
+
+    function render() {
+      const name = input.value.trim();
+      const mute = selectedMute();
+
+      hyphenated.textContent = name === '' ? '' : counter.hyphenate(name, '-', mute);
+      count.textContent = name === ''
+        ? ''
+        : `${counter.count(name, mute)} syllable${counter.count(name, mute) === 1 ? '' : 's'}`;
+    }
+
+    input.addEventListener('input', render);
+
+    for (const radio of document.querySelectorAll('input[name="mute"]')) {
+      radio.addEventListener('change', render);
+    }
+
+    render();
+  </script>
+</body>
+</html>
