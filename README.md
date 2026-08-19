@@ -8,6 +8,8 @@ counter.hyphenate('Sophia');  // "So-phi-a"
 counter.split('Sophia');      // ['So', 'phi', 'a']
 ```
 
+[**Try it in your browser →**](https://tinusg.github.io/syllable-counter-demo/)
+
 This is a vanilla JavaScript port of the PHP package [tinusg/syllable-counter](https://github.com/tinusg/syllable-counter); the rules, the exception list and the test table are the same, and both produce identical output.
 
 ## Installation
@@ -152,7 +154,9 @@ The suite runs on Node's built-in test runner (`node --test`), so there is nothi
 
 ## Demo
 
-`demo/index.html` is a single self-contained page that imports the module directly. Serve the repository over http and open it:
+**[tinusg.github.io/syllable-counter-demo](https://tinusg.github.io/syllable-counter-demo/)** — type a name, see it split live.
+
+`demo/index.html` in this repository is a smaller, self-contained version of the same thing that imports the module directly. Serve the repository over http and open it:
 
 ```bash
 npx serve .
