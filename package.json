@@ -1,6 +1,6 @@
 {
   "name": "@tinusg-npm/syllable-counter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Counts and hyphenates the syllables of Dutch (and Dutch-spelled international) names and words",
   "keywords": [
     "syllables",
